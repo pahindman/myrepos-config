@@ -1,2 +1,2 @@
 [$HOME/.config/vcsh/repo.d/bash-config.git]
-checkout = vcsh clone git://github.com/pahindman/bash-config.git
+checkout = vcsh clone ssh://git@github.com/pahindman/bash-config.git
