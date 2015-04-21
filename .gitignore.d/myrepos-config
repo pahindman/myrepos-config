@@ -1,0 +1,16 @@
+*
+!/.config
+!/.config/mr
+!/.config/mr/available.d
+!/.config/mr/available.d/bash-config.vcsh
+!/.config/mr/available.d/emacs-config.vcsh
+!/.config/mr/available.d/git-config.vcsh
+!/.config/mr/available.d/myrepos-config.vcsh
+!/.config/mr/available.d/readline-config.vcsh
+!/.config/mr/available.d/vcsh-config.vcsh
+!/.config/mr/available.d/vim-config.vcsh
+!/.gitignore.d
+!/.gitignore.d/myrepos-config
+!/.mrconfig
+!/README.md
+!/UNLICENSE
