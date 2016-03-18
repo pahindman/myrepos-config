@@ -1,3 +1,0 @@
-[$HOME/.config/vcsh/repo.d/vcsh-config.git]
-checkout = vcsh clone ssh://git@github.com/pahindman/vcsh-config.git
-order = 1

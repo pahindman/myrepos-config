@@ -7,8 +7,11 @@
 !/.config/mr/available.d/git-config.vcsh
 !/.config/mr/available.d/myrepos-config.vcsh
 !/.config/mr/available.d/readline-config.vcsh
-!/.config/mr/available.d/vcsh-config.vcsh
 !/.config/mr/available.d/vim-config.vcsh
+!/.config/vcsh
+!/.config/vcsh/hooks-enabled
+!/.config/vcsh/hooks-enabled/myrepos-config.post-clone.00-setSparseCheckout
+!/.config/vcsh/hooks-enabled/pre-upgrade.00-setSparseCheckout
 !/.gitignore.d
 !/.gitignore.d/myrepos-config
 !/.mrconfig

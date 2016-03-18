@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# When cloning the myrepos-config repo using vcsh, the pre-upgrade script that
+# myrepos-config provides isn't available until after the pre-upgrade hooks
+# have been called.  So, this script calls the pre-upgrade script after
+# myrepos-config has been cloned.  This is essentially the same as calling
+# 'vcsh update' after the initial clone, but does it automatically.
+
+$(dirname $0)/pre-upgrade.00-setSparseCheckout
+

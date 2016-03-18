@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# This script automatically configures sparse-checkout during the vcsh
+# pre-upgrade hook for any vcsh repo (e.g. right before a repo is initialized,
+# cloned, or updated).
+
+# Configure which files should/shouldn't be checked out into the work tree.
+name=$(basename $0)
+if ! grep $name $GIT_DIR/info/sparse-checkout >/dev/null 2>&1; then
+    cat >> $GIT_DIR/info/sparse-checkout << EOF
+# from $name
+*
+!README
+!README.md
+!README.org
+!LICENSE
+!LICENSE.md
+!UNLICENSE
+!UNLICENSE.md
+EOF
+fi
+
+# Enable sparse checkout and update the work tree accordingly.
+git config core.sparseCheckout true
+git read-tree -mu HEAD
