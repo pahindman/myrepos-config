@@ -8,6 +8,8 @@
 !/.config/mr/available.d/myrepos-config.vcsh
 !/.config/mr/available.d/readline-config.vcsh
 !/.config/mr/available.d/vim-config.vcsh
+!/.config/mr/config.d
+!/.config/mr/config.d/myrepos-config.vcsh
 !/.config/vcsh
 !/.config/vcsh/hooks-enabled
 !/.config/vcsh/hooks-enabled/myrepos-config.post-clone.00-setSparseCheckout
