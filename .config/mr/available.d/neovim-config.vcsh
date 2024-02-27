@@ -1,0 +1,2 @@
+[$HOME/.config/vcsh/repo.d/neovim-config.git]
+checkout = vcsh clone ssh://git@github.com/pahindman/neovim-config.git
