@@ -1,0 +1,2 @@
+[$HOME/.config/vcsh/repo.d/screen-config.git]
+checkout = vcsh clone ssh://git@github.com/pahindman/screen-config.git
