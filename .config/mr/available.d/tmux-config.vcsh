@@ -1,2 +1,2 @@
 [$HOME/.config/vcsh/repo.d/tmux-config.git]
-checkout = vcsh clone ssh://git@github.com/pahindman/tmux-config.git
+checkout = vcsh clone -b main ssh://git@github.com/pahindman/tmux-config.git
