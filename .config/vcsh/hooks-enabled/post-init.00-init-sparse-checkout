@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# Extracts tracked sparse-checkout rules from repo HEAD before initial checkout.
+
+GIT_DIR="$HOME/.config/vcsh/repo.d/${VCSH_REPO_NAME}.git"
+SPARSE_DEST="$GIT_DIR/info/sparse-checkout"
+TRACKED_SPARSE_PATH=".config/${VCSH_REPO_NAME}/sparse-checkout"
+
+mkdir -p "$GIT_DIR/info"
+
+# 1. Enable sparseCheckout in Git config
+vcsh run "$VCSH_REPO_NAME" git config core.sparseCheckout true
+
+# 2. Extract sparse-checkout rules from HEAD object
+if vcsh run "$VCSH_REPO_NAME" git show "HEAD:$TRACKED_SPARSE_PATH" >"$SPARSE_DEST" 2>/dev/null; then
+	echo "[post-init] Extracted sparse-checkout rules from HEAD:$TRACKED_SPARSE_PATH"
+else
+	echo "[post-init] Warning: Tracked '$TRACKED_SPARSE_PATH' not found in repo HEAD, using default sparse-checkout." >&2
+	cat <<-EOF >"$SPARSE_DEST"
+		*
+		!README
+		!README.md
+		!README.org
+		!LICENSE
+		!LICENSE.md
+		!UNLICENSE
+		!UNLICENSE.md
+	EOF
+fi
+
+# Verification step
+if [ -s "$SPARSE_DEST" ]; then
+	echo "[post-init] Verified sparse-checkout file populated at $SPARSE_DEST"
+fi
