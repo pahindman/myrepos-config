@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Auto-installs pre-commit hooks for newly cloned vcsh repositories.
+
+GIT_DIR="$HOME/.config/vcsh/repo.d/${VCSH_REPO_NAME}.git"
+
+# 1. Locate .pre-commit-config.yaml (Root vs .config/<repo>/)
+CONFIG_FILE=""
+if [ -f "$HOME/.pre-commit-config.yaml" ]; then
+	CONFIG_FILE="$HOME/.pre-commit-config.yaml"
+else
+	CONFIG_FILE="$HOME/.config/${VCSH_REPO_NAME}/.pre-commit-config.yaml"
+fi
+
+# 2. Install pre-commit hook into repo metadata
+if [ -f "$CONFIG_FILE" ]; then
+	echo "[post-clone] Found pre-commit config at: $CONFIG_FILE"
+else
+	echo "[post-clone] No pre-commit config found for '$VCSH_REPO_NAME'."
+	echo "[post-clone] Writing a default $CONFIG_FILE, consider adding it to the repo."
+	cat <<-EOF >"$CONFIG_FILE"
+		repos:
+		- repo: https://github.com/pre-commit/pre-commit-hooks
+		  rev: v6.0.0
+		  hooks:
+		  - id: check-added-large-files
+		  - id: check-case-conflict
+		  - id: check-executables-have-shebangs
+		  - id: check-shebang-scripts-are-executable
+		  - id: check-merge-conflict
+		  - id: check-symlinks
+		  - id: check-json
+		  - id: check-yaml
+		  - id: end-of-file-fixer
+		  - id: mixed-line-ending
+		  - id: trailing-whitespace
+	EOF
+fi
+
+# 3. Ensure pre-commit exists in PATH
+if ! command -v pre-commit >/dev/null 2>&1; then
+	echo "[post-clone] 'pre-commit' command not found in PATH. Skipping hook setup."
+	echo "[post-clone] Use 'vcsh run $VCSH_REPO_NAME pre-commit install -c '$CONFIG_FILE'' manually after installing pre-commit."
+	exit 0
+fi
+
+vcsh run "$VCSH_REPO_NAME" pre-commit install -c "$CONFIG_FILE"
+
+# Verification step
+if [ -x "$GIT_DIR/hooks/pre-commit" ]; then
+	echo "[post-clone] Successfully installed pre-commit hook in $GIT_DIR/hooks/"
+else
+	echo "[post-clone] Error: Failed to generate $GIT_DIR/hooks/pre-commit" >&2
+fi
